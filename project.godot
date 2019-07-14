@@ -16,12 +16,13 @@ _global_script_class_icons={
 [application]
 
 config/name="BlobSim"
+run/main_scene="res://mainGameScene.tscn"
 config/icon="res://icon.png"
 
 [display]
 
 window/size/width=300
-window/size/height=250
+window/size/height=400
 
 [rendering]
 
