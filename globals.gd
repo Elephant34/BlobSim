@@ -21,7 +21,7 @@ func load_game_data():
 
 func save_game_data():
 	# Stores the game data to a persistant file
-	
+
 	var game_save = File.new()
 
 	game_save.open("user://blobSave.save", File.WRITE)
@@ -32,7 +32,11 @@ func save_game_data():
 
 func _ready():
 	# Start the game
-	pass
+	if not blob_data:
+		print("New blob")
+	else:
+		var home = load("res://home/homeScene.tscn").instance()
+		add_child(home)
 
 func _notification(what):
 	# If the game is being closed
