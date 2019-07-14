@@ -1,4 +1,4 @@
-extends Node2D
+extends Node
 
 var blob_data = load_game_data()
 
@@ -13,7 +13,7 @@ func load_game_data():
 	
 	game_save.open("user://blobSave.save", File.READ)
 
-	var data = parse_json(game_save.get_line())
+	var data = parse_json(game_save.get_as_text())
 
 	game_save.close()
 
@@ -29,14 +29,6 @@ func save_game_data():
 	game_save.store_line(to_json(blob_data))
 
 	game_save.close()
-
-func _ready():
-	# Start the game
-	if not blob_data:
-		print("New blob")
-	else:
-		var home = load("res://home/homeScene.tscn").instance()
-		add_child(home)
 
 func _notification(what):
 	# If the game is being closed

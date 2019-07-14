@@ -19,6 +19,10 @@ config/name="BlobSim"
 run/main_scene="res://mainGameScene.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+globals="*res://globals.gd"
+
 [display]
 
 window/size/width=300
