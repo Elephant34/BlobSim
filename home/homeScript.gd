@@ -1,4 +1,4 @@
-extends Node2D
+extends Node2D 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -11,3 +11,7 @@ func _ready():
 
 	get_node("Feed/Feed_Amount").set_text("x" + globals.blob_data.feed)
 	get_node("Toy/Toy_Amount").set_text("x" + globals.blob_data.toys)
+
+
+func _on_Feed_pressed():
+	pass # Replace with function body.

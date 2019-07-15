@@ -1,0 +1,77 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://newBlob/newBlob.gd" type="Script" id=1]
+[ext_resource path="res://assets/fonts/LemonMilk.otf" type="DynamicFontData" id=2]
+[ext_resource path="res://assets/fonts/font.tres" type="DynamicFont" id=3]
+
+[sub_resource type="DynamicFont" id=1]
+size = 38
+font_data = ExtResource( 2 )
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0.164706, 0.152941, 0.152941, 0.788235 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 12
+font_data = ExtResource( 2 )
+
+[node name="newBloobRoot" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="Title" type="Label" parent="."]
+margin_left = 4.0
+margin_top = 2.0
+margin_right = 40.0
+margin_bottom = 14.0
+custom_fonts/font = SubResource( 1 )
+text = "New Blob"
+
+[node name="Label" type="Label" parent="."]
+margin_left = 4.0
+margin_top = 73.1302
+margin_right = 139.108
+margin_bottom = 107.13
+custom_fonts/font = ExtResource( 3 )
+text = "Blob name:"
+
+[node name="LineEdit" type="LineEdit" parent="."]
+margin_left = 4.0
+margin_top = 110.0
+margin_right = 291.0
+margin_bottom = 138.0
+custom_styles/normal = SubResource( 2 )
+custom_fonts/font = SubResource( 3 )
+expand_to_text_length = true
+placeholder_text = "Enter blob name"
+
+[node name="Cancel" type="Button" parent="."]
+margin_left = 4.0
+margin_top = 349.0
+margin_right = 117.0
+margin_bottom = 386.0
+custom_fonts/font = ExtResource( 3 )
+text = "Cancel"
+
+[node name="CreateBlob" type="Button" parent="."]
+margin_left = 155.109
+margin_top = 348.0
+margin_right = 284.109
+margin_bottom = 388.0
+custom_fonts/font = ExtResource( 3 )
+text = "New Blob"
+
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_left = 107.0
+margin_top = 212.0
+margin_right = 177.0
+margin_bottom = 282.0
+
+[node name="Border" type="ColorRect" parent="ColorRect"]
+show_behind_parent = true
+margin_left = -3.0
+margin_top = -3.0
+margin_right = 73.0
+margin_bottom = 73.0
+color = Color( 0, 0, 0, 1 )
+[connection signal="pressed" from="Cancel" to="." method="_on_Cancel_pressed"]
+[connection signal="pressed" from="CreateBlob" to="." method="_on_CreateBlob_pressed"]

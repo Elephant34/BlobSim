@@ -114,3 +114,4 @@ margin_right = 19.783
 margin_bottom = 44.5688
 custom_fonts/font = SubResource( 3 )
 text = "x0"
+[connection signal="pressed" from="Feed" to="." method="_on_Feed_pressed"]
