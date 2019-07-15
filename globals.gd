@@ -8,7 +8,7 @@ const DEFAULT_AGE = 30
 
 const MAX_SIZE = 100
 const MIN_SIZE = 1
-const DEFAULT_SIZE = 30
+const DEFAULT_SIZE = 40
 
 const int_to_hex_table = {
 	0:"0",
@@ -85,6 +85,19 @@ func int_to_hex(integer):
 		integer = (integer-remainder)/16
 	
 	return hex
+
+func decode_size(genetics):
+
+	var size = DEFAULT_SIZE
+
+	for allete in genetics:
+		match allete:
+			"s":
+				size -= 1
+			"l":
+				size += 1
+	
+	return size
 
 func _notification(what):
 	# If the game is being closed

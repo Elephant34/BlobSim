@@ -114,4 +114,19 @@ margin_right = 19.783
 margin_bottom = 44.5688
 custom_fonts/font = SubResource( 3 )
 text = "x0"
+
+[node name="Blob" type="ColorRect" parent="."]
+margin_left = 5.03453
+margin_top = 355.729
+margin_right = 45.0345
+margin_bottom = 395.729
+
+[node name="Outline" type="ColorRect" parent="Blob"]
+show_behind_parent = true
+margin_left = -3.0
+margin_top = -3.0
+margin_right = 43.0
+margin_bottom = 43.0
+color = Color( 0, 0, 0, 1 )
 [connection signal="pressed" from="Feed" to="." method="_on_Feed_pressed"]
+[connection signal="pressed" from="Toy" to="." method="_on_Toy_pressed"]
