@@ -66,6 +66,7 @@ func get_max_age():
 
 func _ready():
 	$ColorRect.color = Color(globals.decode_colour(genetics))
+	globals.stop_timers()
 
 func _on_Cancel_pressed():
 	get_tree().quit()
@@ -74,8 +75,6 @@ func _on_Cancel_pressed():
 func _on_CreateBlob_pressed():
 
 	var name = $LineEdit.get_text()
-
-	print(name)
 
 	if not name:
 		return
@@ -95,6 +94,9 @@ func _on_CreateBlob_pressed():
 
 	var home = load("res://home/homeScene.tscn").instance()
 	get_tree().get_root().add_child(home)
+
+	globals.start_timers()
+
 	self.queue_free()
 
 	return

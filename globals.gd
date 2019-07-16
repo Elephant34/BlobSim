@@ -7,7 +7,7 @@ const MIN_AGE = 5
 const DEFAULT_AGE = 30
 
 const MAX_SIZE = 100
-const MIN_SIZE = 1
+const MIN_SIZE = 5
 const DEFAULT_SIZE = 40
 
 const int_to_hex_table = {
@@ -28,6 +28,12 @@ const int_to_hex_table = {
 	14:"e",
 	15:"f",
 }
+
+const HUNGER_TIME = 4
+const HAPPY_TIME = 6
+const YEAR_TIME = 20
+
+var age_limit = false
 
 func load_game_data():
 	# Opens the game data file to load the values
@@ -99,8 +105,62 @@ func decode_size(genetics):
 	
 	return size
 
+func decode_max_age(genetics):
+
+	var max_age = DEFAULT_AGE
+
+	for allete in genetics:
+		match allete:
+			"o":
+				max_age += 1
+			"y":
+				max_age -= 1
+	
+	return max_age
+
 func _notification(what):
 	# If the game is being closed
 	if what == MainLoop.NOTIFICATION_WM_QUIT_REQUEST:
 		save_game_data()
 		get_tree().quit() # default behavior
+
+func _ready():
+
+	if blob_data:
+		if not age_limit:
+			age_limit = decode_max_age(blob_data.genetics)
+	
+	$FoodTimer.set_wait_time(HUNGER_TIME)
+
+	$HappyTimer.set_wait_time(HAPPY_TIME)
+
+	$YearTimer.set_wait_time(YEAR_TIME)
+
+	start_timers()
+
+func _on_FoodTimer_timeout():
+	blob_data.hunger = str(int(blob_data.hunger)-1)
+	$FoodTimer.start()
+
+func _on_HappyTimer_timeout():
+	blob_data.happiness = str(int(blob_data.happiness)-1)
+	$HappyTimer.start()
+
+func _on_YearTimer_timeout():
+	blob_data.age = str(int(blob_data.age)+1)
+	$YearTimer.start()
+
+func _process(float_delta):
+	if blob_data:
+		if not age_limit:
+			age_limit = decode_max_age(blob_data.genetics)
+
+func stop_timers():
+	$YearTimer.stop()
+	$HappyTimer.stop()
+	$FoodTimer.stop()
+
+func start_timers():
+	$YearTimer.start()
+	$HappyTimer.start()
+	$FoodTimer.start()

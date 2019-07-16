@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://newBlob/newBlob.gd" type="Script" id=1]
 [ext_resource path="res://assets/fonts/LemonMilk.otf" type="DynamicFontData" id=2]
@@ -14,6 +14,12 @@ bg_color = Color( 0.164706, 0.152941, 0.152941, 0.788235 )
 [sub_resource type="DynamicFont" id=3]
 size = 12
 font_data = ExtResource( 2 )
+
+[sub_resource type="InputEventKey" id=4]
+scancode = 16777221
+
+[sub_resource type="ShortCut" id=5]
+shortcut = SubResource( 4 )
 
 [node name="newBloobRoot" type="Node2D"]
 script = ExtResource( 1 )
@@ -58,6 +64,7 @@ margin_top = 348.0
 margin_right = 284.109
 margin_bottom = 388.0
 custom_fonts/font = ExtResource( 3 )
+shortcut = SubResource( 5 )
 text = "New Blob"
 
 [node name="ColorRect" type="ColorRect" parent="."]

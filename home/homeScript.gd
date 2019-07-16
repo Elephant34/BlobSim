@@ -1,28 +1,25 @@
 extends Node2D
 
 var blob_size = globals.decode_size(globals.blob_data.genetics)
+var dead = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	# Sets the labels data values
 	$Name.set_text("Name: " + globals.blob_data.name)
 	$Generation.set_text("Generation: " + globals.blob_data.generation)
-	$Hunger.set_text("Hunger: " + globals.blob_data.hunger)
-	$Happiness.set_text("Happiness: " + globals.blob_data.happiness)
-	$Age.set_text("Age: " + globals.blob_data.age)
+	
+	refresh_text()
 
 	$Feed/Feed_Amount.set_text("x" + globals.blob_data.feed)
 	$Toy/Toy_Amount.set_text("x" + globals.blob_data.toys)
 
 	$Blob.color = Color(globals.decode_colour(globals.blob_data.genetics))
 
-	if blob_size <= 0:
-		blob_size = 5
-	elif blob_size > 100:
-		blob_size = 100
-
-	print(blob_size-globals.DEFAULT_SIZE)
-	print((-(float(blob_size)-float(globals.DEFAULT_SIZE))/2)+20)
+	if blob_size < globals.MIN_SIZE:
+		blob_size = globals.MIN_SIZE
+	elif blob_size > globals.MAX_SIZE:
+		blob_size = globals.MAX_SIZE
 
 	$Blob.rect_size.x = blob_size
 	$Blob.rect_size.y = blob_size
@@ -33,6 +30,11 @@ func _ready():
 	$Blob/Outline.rect_size.x = blob_size + 6
 	$Blob/Outline.rect_size.y = blob_size + 6
 
+func refresh_text():
+
+	$Hunger.set_text("Hunger: " + globals.blob_data.hunger)
+	$Happiness.set_text("Happiness: " + globals.blob_data.happiness)
+	$Age.set_text("Age: " + globals.blob_data.age)
 
 func _on_Feed_pressed():
 	if int(globals.blob_data.hunger) + 10 > 100 or int(globals.blob_data.feed) == 0:
@@ -56,3 +58,25 @@ func _on_Toy_pressed():
 	$Toy/Toy_Amount.set_text("x" + globals.blob_data.toys)
 
 	globals.save_game_data()
+
+func _process(delta):
+
+	if int(globals.blob_data.hunger) <= 0:
+		print("Dead blob- hunger")
+		dead = "hunger"
+	if int(globals.blob_data.happiness) <= 0:
+		print("Dead blob- sad")
+		dead = "sad"
+	if int(globals.blob_data.age) >= globals.age_limit:
+		if not int(globals.blob_data.age) < globals.MIN_AGE:
+			print("Dead blob- age")
+			dead = "age"
+	if int(globals.blob_data.age) > globals.MAX_AGE:
+		print("Dead blob- age")
+		dead="age"
+
+	if dead:
+		globals.blob_data = {}
+		globals.save_game_data()
+	
+	refresh_text()
