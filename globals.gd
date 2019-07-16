@@ -35,6 +35,8 @@ const YEAR_TIME = 20
 
 var age_limit = false
 
+var reset = false
+
 func load_game_data():
 	# Opens the game data file to load the values
 
@@ -89,6 +91,9 @@ func int_to_hex(integer):
 		hex = int_to_hex_table[remainder] + hex
 
 		integer = (integer-remainder)/16
+	
+	if len(hex) <= 1:
+		hex = "0" + hex
 	
 	return hex
 
@@ -152,7 +157,7 @@ func _on_YearTimer_timeout():
 
 func _process(float_delta):
 	if blob_data:
-		if not age_limit:
+		if not age_limit or reset:
 			age_limit = decode_max_age(blob_data.genetics)
 
 func stop_timers():

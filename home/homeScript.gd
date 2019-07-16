@@ -62,21 +62,21 @@ func _on_Toy_pressed():
 func _process(delta):
 
 	if int(globals.blob_data.hunger) <= 0:
-		print("Dead blob- hunger")
 		dead = "hunger"
 	if int(globals.blob_data.happiness) <= 0:
-		print("Dead blob- sad")
 		dead = "sad"
 	if int(globals.blob_data.age) >= globals.age_limit:
 		if not int(globals.blob_data.age) < globals.MIN_AGE:
-			print("Dead blob- age")
 			dead = "age"
 	if int(globals.blob_data.age) > globals.MAX_AGE:
-		print("Dead blob- age")
 		dead="age"
 
 	if dead:
-		globals.blob_data = {}
-		globals.save_game_data()
+		var death = load("res://death/deathRoot.tscn").instance()
+		get_tree().get_root().add_child(death)
+
+		self.queue_free()
+		
+		return
 	
 	refresh_text()
